@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Global Base Styles
+   ============================================ */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-500;
+  }
+}
+
+/* ============================================
+   Reusable Component Classes
+   ============================================ */
+@layer components {
+
+  /* Glass-morphism card */
+  .glass-card {
+    @apply bg-slate-900/70 backdrop-blur-md border border-slate-700/50 rounded-2xl shadow-xl;
+  }
+
+  /* Stat card hover lift */
+  .stat-card {
+    @apply glass-card p-6 transition-all duration-300 hover:border-brand-500/50 hover:-translate-y-1 hover:shadow-brand-500/10 hover:shadow-2xl cursor-default;
+  }
+
+  /* Primary action button */
+  .btn-primary {
+    @apply bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-400 hover:to-brand-500
+           text-white font-semibold py-2.5 px-6 rounded-xl
+           transition-all duration-200 shadow-lg shadow-brand-900/50
+           hover:shadow-brand-500/30 hover:-translate-y-0.5
+           disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0;
+  }
+
+  /* Secondary / outlined button */
+  .btn-secondary {
+    @apply border border-slate-600 hover:border-brand-500 text-slate-300 hover:text-brand-400
+           font-medium py-2.5 px-6 rounded-xl transition-all duration-200
+           hover:bg-brand-500/10;
+  }
+
+  /* Form input */
+  .form-input {
+    @apply w-full bg-slate-800/80 border border-slate-600/80
+           text-slate-100 placeholder-slate-500
+           rounded-xl px-4 py-3
+           focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20
+           transition-all duration-200;
+  }
+
+  /* Form label */
+  .form-label {
+    @apply block text-sm font-medium text-slate-400 mb-1.5;
+  }
+
+  /* Status badge */
+  .badge-compliant {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-emerald-500/15 text-emerald-400 border border-emerald-500/30;
+  }
+
+  .badge-withdrawal {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-amber-500/15 text-amber-400 border border-amber-500/30;
+  }
+
+  .badge-unknown {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold
+           bg-slate-500/15 text-slate-400 border border-slate-500/30;
+  }
+
+  /* Table */
+  .data-table {
+    @apply w-full text-sm text-left;
+  }
+
+  .data-table th {
+    @apply px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider
+           border-b border-slate-700/60;
+  }
+
+  .data-table td {
+    @apply px-4 py-3.5 text-slate-300 border-b border-slate-800/60;
+  }
+
+  .data-table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .data-table tbody tr {
+    @apply transition-colors duration-150 hover:bg-slate-800/40;
+  }
+
+  /* Section heading */
+  .section-title {
+    @apply text-lg font-semibold text-slate-100;
+  }
+
+  .section-subtitle {
+    @apply text-sm text-slate-500;
+  }
+}
