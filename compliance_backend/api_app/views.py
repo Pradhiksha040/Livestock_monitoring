@@ -200,6 +200,11 @@ class VetReviewAPIView(APIView):
         # ── 3. Persist the validated vet review data ───────────────────────────
         updated_treatment = serializer.save()
 
+        # ── Send Alert if Approved or Modified ─────────────────────────────────
+        if updated_treatment.vet_decision_status in [TreatmentPrescription.VetDecision.APPROVED, TreatmentPrescription.VetDecision.MODIFIED]:
+            from .utils import send_vet_approval_alert
+            send_vet_approval_alert(updated_treatment)
+
         # ── 4. Build a rich response for the frontend ─────────────────────────
         # Re-serialize with the FULL serializer so the frontend receives ALL
         # fields (including AI predictions) in a single response, avoiding a

@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.FARMER)
+    phone_number = models.CharField(max_length=20, blank=True, null=True, help_text="Phone number for SMS alerts")
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
@@ -32,6 +33,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
 class Livestock(models.Model):
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='livestock', null=True, blank=True)
     tag_id = models.CharField(max_length=50, unique=True, help_text="Unique identifier for the animal")
     species = models.CharField(max_length=50, help_text="e.g., Cattle, Sheep, Pig")
     breed = models.CharField(max_length=50, blank=True, null=True)
