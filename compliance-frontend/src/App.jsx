@@ -11,6 +11,7 @@ import VetDecisionPanel from './components/VetDecisionPanel';
 import FarmerDashboard from './components/FarmerDashboard';
 import VetDashboard from './components/VetDashboard';
 import AdminDashboard from './components/AdminDashboard';
+import Settings from './components/Settings';
 import { fetchTreatments, isLoggedIn, getUserRole } from './api';
 
 /**
@@ -111,12 +112,7 @@ export default function App() {
             </ProtectedRoute>
           } />
           
-          <Route path="share" element={
-            <ProtectedRoute allowedRoles={['VET']}>
-               <ClinicalHistoryPage treatments={treatments} loading={treatmentsLoading} onRefresh={loadTreatments} />
-            </ProtectedRoute>
-          } />
-          
+
           {/* Using a dynamic route for the vet review panel */}
           <Route path="review/:id" element={
             <ProtectedRoute allowedRoles={['VET']}>
@@ -138,6 +134,13 @@ export default function App() {
           <Route path="users" element={
             <ProtectedRoute allowedRoles={['ADMIN']}>
               <div className="glass-card p-12 text-center text-slate-400">User Management Placeholder</div>
+            </ProtectedRoute>
+          } />
+
+          {/* ── Common Routes ── */}
+          <Route path="settings" element={
+            <ProtectedRoute allowedRoles={['FARMER', 'VET', 'ADMIN']}>
+              <Settings />
             </ProtectedRoute>
           } />
         </Route>

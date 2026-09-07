@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Stethoscope, LayoutDashboard, PlusCircle, ClipboardList, Activity, ShieldAlert, Users, LogOut } from 'lucide-react';
+import { Stethoscope, LayoutDashboard, PlusCircle, ClipboardList, Activity, ShieldAlert, Users, LogOut, Settings } from 'lucide-react';
 import { getUserRole, clearTokens } from '../api';
 
 const ROLE_TABS = {
@@ -8,16 +8,18 @@ const ROLE_TABS = {
     { path: '/', label: 'My Livestock', icon: LayoutDashboard },
     { path: '/log', label: 'Add Treatment', icon: PlusCircle },
     { path: '/history', label: 'Compliance Status', icon: ClipboardList },
+    { path: '/settings', label: 'Settings', icon: Settings },
   ],
   VET: [
     { path: '/', label: 'Pending AI Reviews', icon: ClipboardList },
     { path: '/clinical-history', label: 'Clinical History', icon: Activity },
-    { path: '/share', label: 'Share Decisions', icon: Stethoscope },
+    { path: '/settings', label: 'Settings', icon: Settings },
   ],
   ADMIN: [
     { path: '/', label: 'System Overview', icon: LayoutDashboard },
     { path: '/mrl-alerts', label: 'MRL Violations Alert', icon: ShieldAlert },
     { path: '/users', label: 'User Management', icon: Users },
+    { path: '/settings', label: 'Settings', icon: Settings },
   ],
 };
 

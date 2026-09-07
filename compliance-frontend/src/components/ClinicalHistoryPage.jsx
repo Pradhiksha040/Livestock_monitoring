@@ -8,10 +8,13 @@ export default function ClinicalHistoryPage({ treatments, loading, onRefresh }) 
   const isVet = getUserRole() === 'VET';
 
   const handleTreatmentReviewed = (updatedTreatment) => {
-    // We update the local state if needed, or just let the app reload it.
-    // For now, let's call onRefresh so the app refetches the whole list.
+    // We call onRefresh so the app refetches the whole list and updates the background UI immediately.
     if (onRefresh) onRefresh();
-    setSelectedTreatment(null);
+    
+    // Delay closing the panel so the user can see the "Success" banner inside VetDecisionPanel
+    setTimeout(() => {
+      setSelectedTreatment(null);
+    }, 1500);
   };
 
   return (
@@ -28,7 +31,7 @@ export default function ClinicalHistoryPage({ treatments, loading, onRefresh }) 
 
         {/* The slide-out vet review panel */}
         {selectedTreatment && (
-          <div className="animate-slide-left sticky top-24 self-start">
+          <div className="animate-slide-left sticky top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-2 pb-4">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold text-slate-100">Clinical Review</h3>
               <button 

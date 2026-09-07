@@ -161,7 +161,11 @@ function DecisionSelector({ value, onChange }) {
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function VetDecisionPanel({ treatment, onReviewed }) {
   // ── Form state ─────────────────────────────────────────────────────────────
-  const [decision,       setDecision]       = useState(treatment.vet_decision_status || 'Approved');
+  const initialDecision = (!treatment.vet_decision_status || treatment.vet_decision_status === 'Pending') 
+    ? 'Approved' 
+    : treatment.vet_decision_status;
+
+  const [decision,       setDecision]       = useState(initialDecision);
   const [clinicalNotes,  setClinicalNotes]  = useState(treatment.vet_clinical_notes  || '');
   const [finalDate,      setFinalDate]      = useState(treatment.final_safe_market_date || '');
 
@@ -188,7 +192,7 @@ export default function VetDecisionPanel({ treatment, onReviewed }) {
     // Build the PATCH payload — only include final_safe_market_date when relevant
     const payload = {
       vet_decision_status: decision,
-      vet_clinical_notes:  clinicalNotes.trim() || null, // Send null if blank (clears the field)
+      vet_clinical_notes:  (clinicalNotes || '').trim() || null, // Send null if blank (clears the field)
       ...(decision === 'Modified' ? { final_safe_market_date: finalDate } : {}),
     };
 
